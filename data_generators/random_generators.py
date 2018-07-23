@@ -5,7 +5,7 @@ sys.path.append(lib_path)
 import numpy as np
 import random as rd
 
-from utils.utils import shuffle
+from tools.utils import shuffle
 
 
 # [applicants, employers] = random_preferences(5)

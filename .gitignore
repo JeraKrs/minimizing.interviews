@@ -3,3 +3,4 @@
 *.swp
 data/
 __init__.py
+test.py
