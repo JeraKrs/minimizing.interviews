@@ -1,49 +1,32 @@
+from algorithms.lazy_gale_shapley import Lazy_Gale_Shapley
+from data_generators.generators \
+        import generate_partitioned_preferences
+from tools import utils
+from interview import interviewed_number, underlying_preference_lists, underlying_preference_ranks
 
-
+m = 3
 interviewed_number = 0
-underlying_preference_lists = dict(applicant=None, employer=None)
-underlying_preference_ranks = dict(applicant=None, employer=None)
+
+[u_applicant, u_employer, p_applicant, p_employer] = \
+        generate_partitioned_preferences(m)
+
+underlying_preference_lists['applicant'] = u_applicant
+underlying_preference_lists['employer'] = u_employer
+
+applicant_ranks = list()
+employer_ranks = list()
+for i in range(m):
+    applicant_ranks.append(utils.list_to_rank(u_applicant[i], m))
+    employer_ranks.append(utils.list_to_rank(u_employer[i], m))
+
+underlying_preference_ranks['applicant'] = applicant_ranks
+underlying_preference_ranks['employer'] = employer_ranks
 
 
-def interview(applicant, employer, interviewed_ranks)
+[matching_a, matching_e] = Lazy_Gale_Shapley(m, p_applicant, p_employer)
 
-    # Error checking
-    isinstance(applicant, int)
-    isinstance(employer, int)
-    isinstance(interviewed_ranks, dict)
+print(u_applicant)
+print(u_employer)
 
-    applicant_viewed_rank = interviewed_ranks['applicant']
-    employer_viewed_rank = interviewed_ranks['employer']
-
-    isinstance(applicant_viewed_rank, list)
-    isinstance(employer_viewed_rank, list)
-
-    if applicant_viewed_rank[employer] != -1 or \
-            employer_viewed_rank[applicant] != -1:
-        raise RuntimeError('interview error')
-
-    # Update the rank by the result of interview
-    m = len(applicant_viewed_rank)
-    interviewed_number += 1
-
-    applicant_viewed_rank[employer] = 0
-    for i in range(m):
-        if applicant_viewed_rank[i] == -1 or i == employer:
-            continue
-        elif underlying_preference_ranks['applicant'][i] > \
-                underlying_preference_ranks['applicant'][employer]:
-            applicant_viewed_rank[i] += 1
-        else:
-            applicant_viewed_rank[employer] += 1
-
-    employer_viewed_rank[applicant] = 0
-    for i in range(m):
-        if employer_viewed_rank[i] == -1 or i == applicant:
-            continue
-        elif underlying_preference_ranks['employer'][i] > \
-                underlying_preference_ranks['employer'][applicant]:
-            employer_viewed_rank[i] += 1
-        else:
-            employer_viewed_rank[applicant] += 1
-
-
+print(matching_a)
+print(matching_e)
