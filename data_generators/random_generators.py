@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import os, sys
 lib_path = os.path.abspath(os.path.join('..'))
 sys.path.append(lib_path)
@@ -13,13 +15,10 @@ def random_preferences(m):
 
     isinstance(m, int)
 
-    applicants = list()
-    employers = list()
+    applicants, employers = list(), list()
 
     for i in range(m):
         applicants.append(list(np.random.permutation(m)))
-
-    for i in range(m):
         employers.append(list(np.random.permutation(m)))
 
     return applicants, employers
@@ -46,7 +45,12 @@ def random_partition(preference, k):
     return partitioned_preference
 
 
+# partitioned_preferences = \
+#   random_partition_preferences([[0, 2, 1], [1, 2, 0], [1, 2, 0]])
 def random_partition_preferences(preferences):
+
+    isinstance(preferences, list)
+
     m = len(preferences)
     partitioned_preferences = list()
 
