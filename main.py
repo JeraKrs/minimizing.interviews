@@ -1,32 +1,36 @@
+# -*- coding: utf-8 -*- 
 from algorithms.lazy_gale_shapley import Lazy_Gale_Shapley
 from data_generators.generators \
         import generate_partitioned_preferences
-from tools import utils
-from interview import interviewed_number, underlying_preference_lists, underlying_preference_ranks
+from data_accessors.interview import init_data, get_count
+from tools import utils, checkers
 
-m = 3
-interviewed_number = 0
+m = 100
 
 [u_applicant, u_employer, p_applicant, p_employer] = \
         generate_partitioned_preferences(m)
 
-underlying_preference_lists['applicant'] = u_applicant
-underlying_preference_lists['employer'] = u_employer
+# u_applicant = [[1, 0, 2], [0, 1, 2], [0, 1, 2]]
+# u_employer = [[0, 1, 2], [0, 2, 1], [0, 1, 2]]
+# p_applicant = [[[0, 1], [2]], [[0, 1], [2]], [[0, 1], [2]]]
+# p_employer = [[[0, 1], [2]], [[0, 2], [1]], [[0], [1, 2]]]
 
-applicant_ranks = list()
-employer_ranks = list()
-for i in range(m):
-    applicant_ranks.append(utils.list_to_rank(u_applicant[i], m))
-    employer_ranks.append(utils.list_to_rank(u_employer[i], m))
-
-underlying_preference_ranks['applicant'] = applicant_ranks
-underlying_preference_ranks['employer'] = employer_ranks
-
+init_data(u_applicant, u_employer)
 
 [matching_a, matching_e] = Lazy_Gale_Shapley(m, p_applicant, p_employer)
 
-print(u_applicant)
-print(u_employer)
 
-print(matching_a)
-print(matching_e)
+result = checkers.is_stable_matching(
+        matching_a, matching_e, u_applicant, u_employer)
+if result == False:
+    print("u_applicant:{}".format(u_applicant))
+    print("u_employer:{}".format(u_employer))
+
+    print("p_applicant:{}".format(p_applicant))
+    print("p_employer:{}".format(p_employer))
+
+    print("matching_applicant:{}".format(matching_a))
+    print("matching_employer:{}".format(matching_e))
+
+print(result)
+print(get_count())

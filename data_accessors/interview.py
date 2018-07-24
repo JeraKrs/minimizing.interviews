@@ -63,12 +63,14 @@ def interview(applicant, employer, interviewed_ranks):
     m = len(applicant_viewed_rank)
     interviewed_number += 1
 
+    r_applicant = underlying_preference_ranks['applicant'][applicant]
+    r_employer = underlying_preference_ranks['employer'][employer]
+
     applicant_viewed_rank[employer] = 0
     for i in range(m):
         if applicant_viewed_rank[i] == -1 or i == employer:
             continue
-        elif underlying_preference_ranks['applicant'][i] > \
-                underlying_preference_ranks['applicant'][employer]:
+        elif r_applicant[i] > r_applicant[employer]:
             applicant_viewed_rank[i] += 1
         else:
             applicant_viewed_rank[employer] += 1
@@ -77,8 +79,7 @@ def interview(applicant, employer, interviewed_ranks):
     for i in range(m):
         if employer_viewed_rank[i] == -1 or i == applicant:
             continue
-        elif underlying_preference_ranks['employer'][i] > \
-                underlying_preference_ranks['employer'][applicant]:
+        elif r_employer[i] > r_employer[applicant]:
             employer_viewed_rank[i] += 1
         else:
             employer_viewed_rank[applicant] += 1

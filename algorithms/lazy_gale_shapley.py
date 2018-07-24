@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- 
 import os, sys                                                                                                                
 lib_path = os.path.abspath(os.path.join('..'))
 sys.path.append(lib_path)
@@ -5,8 +6,8 @@ sys.path.append(lib_path)
 import numpy as np
 import queue
 
-from interview import interview
-from tools.utils import rank_to_list
+from data_accessors.interview import interview
+from tools.utils import rank_to_list, minusones
 
 
 def remove_available(applicant, employer, available, p_applicant):
@@ -19,22 +20,21 @@ def remove_available(applicant, employer, available, p_applicant):
 
     while l < n:
         for i in p_applicant[l]:
-            available[employer][i] = 1
+            available[i][applicant] = 1
         l = l + 1
 
 
 def Lazy_Gale_Shapley(m, p_applicant, p_employer):
 
     available = np.zeros([m, m])
-    matching_a = list(np.zeros(m) - 1)
-    matching_e = list(np.zeros(m) - 1)
+    matching_a, matching_e = minusones(m), minusones(m)
 
     interviewed_rank = dict()
     interviewed_level = dict()
 
     applicants_ranks = dict()
     for i in range(m):
-        applicants_ranks[i] = list(np.zeros(m) - 1)
+        applicants_ranks[i] = minusones(m)
 
 
     unmatched = m
@@ -51,7 +51,7 @@ def Lazy_Gale_Shapley(m, p_applicant, p_employer):
                 l = interviewed_level.get(employer, 0)
                 interviewed_level[employer] = l + 1
 
-                undetermined_rank = list(np.zeros(m) - 1)
+                undetermined_rank = minusones(m)
                 for i in p_employer[employer][l]:
                     if available[employer][i] == 1:
                         continue
