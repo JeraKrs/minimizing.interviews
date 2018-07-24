@@ -27,7 +27,7 @@ def list_to_rank(preference_list, m):
 
 def rank_to_list(preference_rank):
 
-    isinstance(preference_rank)
+    isinstance(preference_rank, list)
 
     m = len(preference_rank)
     n = max(preference_rank) + 1
