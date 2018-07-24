@@ -1,12 +1,48 @@
+# -*- coding: utf-8 -*- 
+import os, sys
+lib_path = os.path.abspath(os.path.join('..'))
+sys.path.append(lib_path)
 
-interviewed_number = 0
+from tools import utils
+
+
+interviewed_number = -1
 underlying_preference_lists = dict(applicant=None, employer=None)
 underlying_preference_ranks = dict(applicant=None, employer=None)
+
+
+def init_data(u_applicant, u_employer):
+    global interviewed_number
+    global underlying_preference_lists
+    global underlying_preference_ranks
+
+    isinstance(u_applicant, list)
+    isinstance(u_employer, list)
+
+    m = len(u_applicant)
+    interviewed_number = 0
+    underlying_preference_lists['applicant'] = u_applicant
+    underlying_preference_lists['employer'] = u_employer
+
+    applicant_ranks, employer_ranks = list(), list()
+    for i in range(m):
+        applicant_ranks.append(utils.list_to_rank(u_applicant[i], m))
+        employer_ranks.append(utils.list_to_rank(u_employer[i], m))
+
+    underlying_preference_ranks['applicant'] = applicant_ranks
+    underlying_preference_ranks['employer'] = employer_ranks
+
+
+def get_count():
+    global interviewed_number
+    return interviewed_number
+
 
 def interview(applicant, employer, interviewed_ranks):
     global interviewed_number
     global underlying_preference_lists
     global underlying_preference_ranks
+    # print("applicant {}, employer {}".format(applicant, employer))
 
     # Error checking
     isinstance(applicant, int)
