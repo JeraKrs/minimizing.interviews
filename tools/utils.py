@@ -1,13 +1,20 @@
+ # -*- coding: utf-8 -*-
+from copy import deepcopy
 import numpy as np
 
+def minusones(m):
+    return [-1 for i in range(m)]
+
+
 def shuffle(preferences):
-    np.random.shuffle(preferences)
-    return preferences
+    random_preferences = deepcopy(preferences)
+    np.random.shuffle(random_preferences)
+    return random_preferences
 
 
 def list_to_rank(preference_list, m):
-    preference_rank = list(np.zeros(m) - 1)
-    for i in range(m):
+    preference_rank = minusones(m)
+    for i in range(len(preference_list)):
         preference_rank[preference_list[i]] = i
     return preference_rank
 
