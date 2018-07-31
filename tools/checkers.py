@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-import os, sys
-lib_path = os.path.abspath(os.path.join('..'))
-sys.path.append(lib_path)
-
 from tools import utils
 
 def is_stable_matching(matching_a, matching_e, u_applicant, u_employer):
