@@ -2,8 +2,23 @@
 import unittest
 
 from random_generators import *
-from luce_generators import *
 from score_generators import *
+from luce_generators import *
+from bradley_terry_generators import *
+
+class TestScoreGeneratorsFunc(unittest.TestCase):
+    def test_gaussian_distribution(self):
+        """Test method gaussian_distribution(m, sigma, mean)"""
+        self.assertEqual([], gaussian_distribution(0),
+                "gaussian_distribution is failed in m = 0")
+        self.assertEqual([], gaussian_distribution(-1),
+                "gaussian_distribution is failed in m = -1")
+        self.assertIsInstance(gaussian_distribution(5, 2), list,
+                ("gaussian_distribution is failed since the type"
+                " of return variable is incorrect"))
+        self.assertEqual(5, len(gaussian_distribution(5, 2)),
+                ("gaussian_distribution is failed since the size"
+                " of return variable is incorrect"))
 
 
 class TestRandomGeneratorsFunc(unittest.TestCase):
@@ -98,19 +113,45 @@ class TestLuceGeneratorsFunc(unittest.TestCase):
                 " of return variable is incorrect"))
 
 
-class TestScoreGeneratorsFunc(unittest.TestCase):
-    def test_gaussian_distribution(self):
-        """Test method gaussian_distribution(m, sigma, mean)"""
-        self.assertEqual([], gaussian_distribution(0),
-                "gaussian_distribution is failed in m = 0")
-        self.assertEqual([], gaussian_distribution(-1),
-                "gaussian_distribution is failed in m = -1")
-        self.assertIsInstance(gaussian_distribution(5, 2), list,
-                ("gaussian_distribution is failed since the type"
+class TestBradleyTerryGeneratorsFunc(unittest.TestCase):
+    def test_bradley_terry_preferences(self):
+        """Test method bradley_terry_preferences(m, sigma, mean)"""
+        self.assertEqual(([], []), bradley_terry_preferences(0),
+                "bradley_terry_preferences is failed in m = 0")
+        self.assertEqual(([], []), bradley_terry_preferences(-1),
+                "bradley_terry_preferences is failed in m = -1")
+        self.assertIsInstance(bradley_terry_preferences(5, 2), tuple,
+                ("bradley_terry_preferences is failed since the type"
                 " of return variable is incorrect"))
-        self.assertEqual(5, len(gaussian_distribution(5, 2)),
-                ("gaussian_distribution is failed since the size"
+
+        a, e = luce_preferences(5, 2)
+        self.assertIsInstance(a, list,
+                ("bradley_terry_preferences is failed since the type"
                 " of return variable is incorrect"))
+        self.assertIsInstance(e, list,
+                ("bradley_terry_preferences is failed since the type"
+                " of return variable is incorrect"))
+        self.assertEqual(5, len(a),
+                ("bradley_terry_preferences is failed since the size"
+                " of return variable is incorrect"))
+        self.assertEqual(5, len(e),
+                ("bradley_terry_preferences is failed since the size"
+                " of return variable is incorrect"))
+
+    def test_bradley_terry_model(self):
+        """Test method bradley_terry_model(scores)"""
+        self.assertEqual([], bradley_terry_model([]),
+                "bradley_terry_model is failed in scores = []")
+
+        scores = [5.0, 4.5, 4.5, 3.0]
+        rank = bradley_terry_model(scores)
+        self.assertEqual([5.0, 4.5, 4.5, 3.0], scores,
+                ("bradley_terry_model is failed since it"
+                " changed the input variable"))
+        self.assertEqual(4, len(rank),
+                ("bradley_terry_model is failed since the size"
+                " of return variable is incorrect"))
+
 
 
 if __name__ == '__main__':
