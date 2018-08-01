@@ -15,7 +15,7 @@ def bradley_terry_model(scores):
     isinstance(scores, list)
 
     m = len(scores)
-    f = list(np.zeros(m))
+    f = list(np.ones(m))
     lw = [math.log(x) for x in scores]
     slw = list(np.zeros(m))
     for i in range(m):
@@ -26,16 +26,15 @@ def bradley_terry_model(scores):
     rank = list()
     for i in range(m):
         # k * log w_i - log(w_i + w_j) ...
-        H = [math.exp((m-f[j]-1)*lw[j]-slw[j]) for j in range(m)]
+        H = [f[j]*math.exp((m-i-1)*lw[j]-slw[j]) for j in range(m)]
         F = sum(H)
         probs = [x/F for x in H]
 
         k = np.random.choice(range(m), 1, p=probs)[0]
         rank.append(k)
 
-        f[k] = m
+        f[k] = 0
         for j in range(m):
-            f[j] = max(f[j], i+1)
             slw[j] -= math.log(scores[k] + scores[j])
 
     return rank

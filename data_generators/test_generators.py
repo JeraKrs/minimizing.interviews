@@ -6,6 +6,7 @@ from score_generators import *
 from luce_generators import *
 from bradley_terry_generators import *
 
+
 class TestScoreGeneratorsFunc(unittest.TestCase):
     def test_gaussian_distribution(self):
         """Test method gaussian_distribution(m, sigma, mean)"""
