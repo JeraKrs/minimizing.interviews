@@ -7,6 +7,11 @@ def minusones(m):
     return [-1 for i in range(m)]
 
 
+def initlists(m, v):
+    isinstance(m, int)
+    return [v for i in range(m)]
+
+
 def shuffle(preferences):
     isinstance(preferences, list)
     random_preferences = deepcopy(preferences)

@@ -22,6 +22,7 @@ init_data(u_applicant, u_employer)
 
 result = checkers.is_stable_matching(
         matching_a, matching_e, u_applicant, u_employer)
+
 if result == False:
     print("u_applicant:{}".format(u_applicant))
     print("u_employer:{}".format(u_employer))
