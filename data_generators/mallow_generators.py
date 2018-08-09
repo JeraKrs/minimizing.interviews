@@ -8,6 +8,7 @@ import numpy as np
 
 from data_generators.bradley_terry_generators import bradley_terry_model
 
+
 def spearman(a, b):
     isinstance(a, list)
     isinstance(b, list)
@@ -28,8 +29,7 @@ def footrule(a, b):
     return r
 
 
-def mallow_model(m, sigma, pro_f):
-    mu = list(np.random.permutation(m))
+def mallow_model(m, sigma, mu, pro_f):
 
     score = [m - i*sigma for i in mu]
     p, v = list(), list()
@@ -51,10 +51,10 @@ def mallow_model(m, sigma, pro_f):
 def mallow_preferences(m, sigma, pros="spearman"):
 
     if pros == "spearman":
-        applicants = mallow_model(m, sigma, spearman)
-        employers = mallow_model(m, sigma, spearman)
+        applicants = mallow_model(m, sigma, list(np.random.permutation(m)), spearman)
+        employers = mallow_model(m, sigma, list(np.random.permutation(m)), spearman)
     elif pros == "footrule":
-        applicants = mallow_model(m, sigma, footrule)
-        employers = mallow_model(m, sigma, footrule)
+        applicants = mallow_model(m, sigma, list(np.random.permutation(m)), footrule)
+        employers = mallow_model(m, sigma, list(np.random.permutation(m)), footrule)
 
     return applicants, employers
