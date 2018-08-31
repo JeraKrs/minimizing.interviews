@@ -1,0 +1,5 @@
+length: 10
+sample: 10
+model: luce
+theta: 0.5
+print: False

@@ -44,3 +44,15 @@ def rank_to_list(preference_rank):
         preference_list[preference_rank[i]] = i
 
     return preference_list
+
+
+def sort_by_score(scores):
+    m, l = len(scores), list()
+    for i in range(m):
+        l.append((i, scores[i]))
+    l = sorted(l, key=lambda s: s[1], reverse=True)
+
+    ret = list()
+    for i in l:
+        ret.append(i[0])
+    return ret
