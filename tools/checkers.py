@@ -46,6 +46,10 @@ def count_blocking_pairs(matching_a, matching_e, u_applicant, u_employer):
         rank.append(utils.list_to_rank(u_applicant[i], m))
 
     for employer in range(m):
+        if employer == -1:
+            c += 1
+            continue
+
         for i in range(m):
             alternatives = u_employer[employer][i]
 
@@ -53,11 +57,10 @@ def count_blocking_pairs(matching_a, matching_e, u_applicant, u_employer):
                 break
 
             matched_employer = matching_a[alternatives]
-            if rank[alternatives][employer] < \
+            if matched_employer < 0 or rank[alternatives][employer] < \
                     rank[alternatives][matched_employer]:
                 c += 1
                 break
-
     return c
 
 
