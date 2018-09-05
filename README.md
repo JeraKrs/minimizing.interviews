@@ -75,4 +75,35 @@ To examine the MUL-PP model of the interview-schedule. The file `config_mul_mode
 To run:
 
 ```
+$ python assess-mul-model.py 
+
+length:10
+case:10
+theta:0.8
+Ru =  0.025
+Ri =  0.693
 ```	
+
+The `Ru` is the unsatisfied rate and `Ri` is the interview rate.
+
+
+### Compare the random model and the NUL-PP model
+
+To compare the solution of the random model and the MUL-PP model. The file `config_comparison.yaml` is the configurations, it has 3 paramters:
+
+* length: the length of each preference list.
+* case: the number of test group.
+* theta: the similarity of the preference lists in the test data.
+
+To run:
+
+```
+$ python assess-comparison.py
+
+length:10
+case:10
+theta:1
+Ru (MUL) =  0.01
+Ru (Random) =  0.365
+Ri =  0.6950000000000001
+```
