@@ -22,7 +22,7 @@ case = configs.get("case", 0)
 
 Ru = list()
 
-for r in range(0, 100, 10):
+for r in range(0, 110, 10):
     k = int(n * n * r / 100)
 
     ru = 0
